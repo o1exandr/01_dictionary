@@ -53,7 +53,7 @@ namespace _01_dictionary
             }
 
             // Пошук перекладу для англ.слова
-            void FindEng(string search)
+            public void FindEng(string search)
             {
                 if (dictionary.TryGetValue(search, out string result))
                 {
@@ -66,9 +66,20 @@ namespace _01_dictionary
             }
 
             // Пошук перекладу для укр.слова
-            void FindUkr(string search)
+            public void FindUkr(string search)
             {
-
+                var word = dictionary.TakeWhile(x => x.Value == search);
+                Console.WriteLine(word);
+                /*
+                if (dictionary.TryGetValue(dictionary[search], out string result))
+                {
+                    Console.WriteLine($"\n'{search}' was found and  its value is '{dictionary[search]}'");
+                }
+                else
+                {
+                    Console.WriteLine($"\n'{search}' was  NOT found");
+                }
+                */
             }
 
             //  Вилучення пари з словника
@@ -133,6 +144,8 @@ namespace _01_dictionary
             vocabulary.AddWord("book", "книга");
 
             vocabulary.Print();
+            vocabulary.FindEng("car");
+            vocabulary.FindUkr("книга");
             vocabulary.ChangeWord();
             vocabulary.Print();
             vocabulary.RemoveWord();
