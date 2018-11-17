@@ -16,8 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _01_dictionary
 {
@@ -67,19 +65,17 @@ namespace _01_dictionary
 
             // Пошук перекладу для укр.слова
             public void FindUkr(string search)
-            {
-                var word = dictionary.TakeWhile(x => x.Value == search);
-                Console.WriteLine(word);
-                /*
-                if (dictionary.TryGetValue(dictionary[search], out string result))
+            {   
+                if (dictionary.ContainsValue(search))
                 {
-                    Console.WriteLine($"\n'{search}' was found and  its value is '{dictionary[search]}'");
+                    var word = dictionary.TakeWhile(x => x.Value == search).FirstOrDefault();
+                    Console.WriteLine($"\n'{search}' was found and  its value is '{word.Key}'");
                 }
                 else
                 {
                     Console.WriteLine($"\n'{search}' was  NOT found");
                 }
-                */
+               
             }
 
             //  Вилучення пари з словника
@@ -98,7 +94,7 @@ namespace _01_dictionary
                 }
             }
 
-            /*
+            
             // Редагування пари з словника
             public void EditWord()
             {
@@ -107,20 +103,21 @@ namespace _01_dictionary
                 if (dictionary.TryGetValue(eng, out string result))
                 {
                     
-                    Console.Write("Enter new translate:\t");
+                    Console.Write("Enter new ENG word:\t");
                     string newEng = Console.ReadLine();
                     
-                    Console.Write("Enter new translate:\t");
+                    Console.Write("Enter new UKR translate:\t");
                     string ukr = Console.ReadLine();
-                    dictionary[eng] = ukr;
-                    Console.WriteLine($"\n'{eng}' was change translation on '{ukr}'");
+                    dictionary.Remove(eng);
+                    dictionary[newEng] = ukr;
+                    Console.WriteLine($"\n'{newEng}' was change translation on '{ukr}'");
                 }
                 else
                 {
                     Console.WriteLine($"\n'{eng}' was  NOT found");
                 }
             }
-            */
+            
 
             // Вивід інформації про всі пари(слово - переклад)
             public void Print()
@@ -140,7 +137,7 @@ namespace _01_dictionary
             Dictionary vocabulary = new Dictionary();
             vocabulary.AddWord("true", "iстина");
             vocabulary.AddWord("car", "машина");
-            vocabulary.AddWord("pencil", "олiвець");
+            vocabulary.AddWord("dog", "пес");
             vocabulary.AddWord("book", "книга");
 
             vocabulary.Print();
@@ -149,6 +146,8 @@ namespace _01_dictionary
             vocabulary.ChangeWord();
             vocabulary.Print();
             vocabulary.RemoveWord();
+            vocabulary.Print();
+            vocabulary.EditWord();
             vocabulary.Print();
 
 
